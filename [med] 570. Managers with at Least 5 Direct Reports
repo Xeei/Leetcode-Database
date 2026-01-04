@@ -1,0 +1,23 @@
+## Question
+https://leetcode.com/problems/managers-with-at-least-5-direct-reports/
+
+## Answer
+```sql
+with manager as (
+    SELECT *
+    FROM Employee
+)
+
+SELECT mn.name
+FROM manager mn
+
+INNER JOIN (
+    SELECT *
+    FROM Employee
+    WHERE managerId IS NOT NULL
+) as em
+ON mn.id = em.managerId
+
+GROUP BY mn.id, mn.name
+HAVING COUNT(*) >= 5
+```
